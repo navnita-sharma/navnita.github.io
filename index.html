@@ -1,88 +1,997 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navnita Sharma | Data Innovator</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        :root { --primary: #6c5ce7; --bg: #0f172a; --text: #f8fafc; }
-        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
-        .hero { height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(45deg, #1e293b, #6c5ce7); }
-        .container { max-width: 1000px; margin: auto; padding: 20px; }
-        .card { background: #1e293b; padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #334155; transition: 0.3s; }
-        .card:hover { transform: translateY(-5px); border-color: var(--primary); }
-        .chart-container { background: white; padding: 20px; border-radius: 15px; margin-top: 10px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-    </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Navnita Sharma — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #0a0a0f;
+  --bg2: #0f0f1a;
+  --bg3: #141425;
+  --surface: #1a1a2e;
+  --surface2: #1f1f38;
+  --border: rgba(120,100,255,0.15);
+  --accent: #7c5cfc;
+  --accent2: #e040fb;
+  --accent3: #00e5c8;
+  --accent4: #ff6b6b;
+  --gold: #ffd54f;
+  --text: #e8e4ff;
+  --text-muted: #8b85b0;
+  --text-dim: #5c5880;
+  --glow: 0 0 40px rgba(124,92,252,0.25);
+  --glow2: 0 0 30px rgba(224,64,251,0.2);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  font-weight:300;
+  line-height:1.7;
+  overflow-x:hidden;
+}
+ 
+/* ── NOISE TEXTURE ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:.4;
+}
+ 
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px;}
+ 
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:18px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(10,10,15,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:'Playfair Display',serif;
+  font-size:1.2rem;letter-spacing:.05em;
+  color:var(--text);
+}
+.nav-logo span{color:var(--accent);}
+.nav-links{display:flex;gap:32px;}
+.nav-links a{
+  font-size:.82rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text-muted);text-decoration:none;
+  transition:color .3s;
+}
+.nav-links a:hover{color:var(--accent3);}
+ 
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;align-items:center;
+  padding:120px 48px 80px;
+  position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(124,92,252,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 20% 70%, rgba(0,229,200,0.07) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 30% at 85% 80%, rgba(224,64,251,0.08) 0%, transparent 50%);
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(120,100,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120,100,255,0.04) 1px, transparent 1px);
+  background-size:60px 60px;
+}
+.hero-content{position:relative;z-index:2;max-width:700px;}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(124,92,252,0.1);border:1px solid rgba(124,92,252,0.3);
+  padding:6px 16px;border-radius:20px;
+  font-size:.75rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:28px;
+}
+.hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent3);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3rem,7vw,5.5rem);
+  font-weight:900;line-height:1.0;
+  letter-spacing:-.02em;
+  margin-bottom:16px;
+}
+.hero h1 .accent-name{
+  display:block;
+  background:linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--accent3) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-subtitle{
+  font-size:1.1rem;color:var(--text-muted);font-weight:400;
+  margin-bottom:12px;
+}
+.hero-badges{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0 40px;}
+.badge{
+  padding:6px 14px;border-radius:20px;
+  font-size:.75rem;font-weight:500;letter-spacing:.06em;
+  border:1px solid;
+}
+.badge-purple{background:rgba(124,92,252,.12);border-color:rgba(124,92,252,.4);color:#b89cff;}
+.badge-teal{background:rgba(0,229,200,.08);border-color:rgba(0,229,200,.35);color:var(--accent3);}
+.badge-pink{background:rgba(224,64,251,.08);border-color:rgba(224,64,251,.35);color:#e87fff;}
+.badge-gold{background:rgba(255,213,79,.08);border-color:rgba(255,213,79,.35);color:var(--gold);}
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap;}
+.btn{
+  padding:13px 28px;border-radius:8px;
+  font-size:.85rem;font-weight:600;letter-spacing:.06em;
+  text-decoration:none;cursor:pointer;border:none;
+  transition:all .3s;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;box-shadow:0 4px 20px rgba(124,92,252,.4);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(124,92,252,.5);}
+.btn-ghost{
+  background:transparent;border:1px solid var(--border);color:var(--text-muted);
+}
+.btn-ghost:hover{border-color:var(--accent3);color:var(--accent3);}
+ 
+/* hero stats */
+.hero-stats{
+  position:absolute;right:48px;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:24px;z-index:2;
+}
+.stat-card{
+  background:var(--surface);border:1px solid var(--border);
+  padding:20px 24px;border-radius:12px;text-align:center;
+  backdrop-filter:blur(10px);min-width:120px;
+}
+.stat-card .stat-num{
+  font-family:'Playfair Display',serif;
+  font-size:2rem;font-weight:700;
+  background:linear-gradient(135deg,var(--accent),var(--accent3));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.stat-card .stat-label{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);}
+ 
+/* ── SECTIONS ── */
+section{position:relative;padding:90px 48px;max-width:1200px;margin:0 auto;}
+.section-header{margin-bottom:56px;}
+.section-label{
+  font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:10px;
+}
+.section-label::before{content:'';width:24px;height:2px;background:var(--accent);}
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,4vw,3rem);font-weight:700;line-height:1.1;
+  letter-spacing:-.02em;
+}
+ 
+/* ── DIVIDER ── */
+.divider{
+  width:100%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--border),transparent);
+  margin:0 48px;
+}
+ 
+/* ── EDUCATION ── */
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.edu-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:32px;
+  position:relative;overflow:hidden;
+  transition:transform .3s,box-shadow .3s;
+}
+.edu-card:hover{transform:translateY(-4px);box-shadow:var(--glow);}
+.edu-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+}
+.edu-year{
+  font-family:'DM Mono',monospace;font-size:.78rem;
+  color:var(--accent3);letter-spacing:.08em;margin-bottom:8px;
+}
+.edu-degree{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin-bottom:4px;}
+.edu-inst{font-size:.9rem;color:var(--text-muted);margin-bottom:16px;}
+.edu-cgpa{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,213,79,.1);border:1px solid rgba(255,213,79,.3);
+  padding:4px 12px;border-radius:20px;
+  font-size:.78rem;font-weight:600;color:var(--gold);
+}
+ 
+/* ── PATENTS ── */
+.patent-list{display:flex;flex-direction:column;gap:20px;}
+.patent-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:28px 32px;
+  display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:start;
+  transition:all .3s;
+}
+.patent-card:hover{border-color:rgba(124,92,252,.4);box-shadow:var(--glow);}
+.patent-icon{
+  width:48px;height:48px;border-radius:12px;
+  background:linear-gradient(135deg,rgba(124,92,252,.2),rgba(224,64,251,.2));
+  border:1px solid rgba(124,92,252,.3);
+  display:flex;align-items:center;justify-content:center;font-size:1.4rem;
+  flex-shrink:0;
+}
+.patent-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:6px;}
+.patent-desc{font-size:.88rem;color:var(--text-muted);line-height:1.6;}
+.patent-badge{
+  flex-shrink:0;align-self:flex-start;
+  padding:4px 12px;border-radius:20px;font-size:.72rem;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;
+}
+.badge-granted{background:rgba(0,229,200,.1);border:1px solid rgba(0,229,200,.4);color:var(--accent3);}
+.badge-published{background:rgba(255,213,79,.1);border:1px solid rgba(255,213,79,.4);color:var(--gold);}
+.patent-app{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--text-dim);margin-top:6px;}
+ 
+/* ── PROJECTS ── */
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.project-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:28px;
+  transition:all .3s;cursor:default;
+  display:flex;flex-direction:column;gap:14px;
+  position:relative;overflow:hidden;
+}
+.project-card:hover{transform:translateY(-4px);border-color:rgba(124,92,252,.4);box-shadow:var(--glow);}
+.project-card.featured{
+  border-color:rgba(224,64,251,.25);
+  background:linear-gradient(135deg,rgba(124,92,252,.07),rgba(224,64,251,.07));
+}
+.project-card.featured::after{
+  content:'★ FEATURED';
+  position:absolute;top:16px;right:16px;
+  font-size:.62rem;font-weight:700;letter-spacing:.12em;
+  color:var(--gold);background:rgba(255,213,79,.1);border:1px solid rgba(255,213,79,.3);
+  padding:3px 8px;border-radius:10px;
+}
+.proj-emoji{font-size:2rem;margin-bottom:4px;}
+.proj-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;}
+.proj-desc{font-size:.84rem;color:var(--text-muted);line-height:1.6;}
+.proj-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;}
+.proj-tag{
+  font-size:.68rem;font-weight:500;letter-spacing:.06em;
+  padding:3px 10px;border-radius:12px;
+  background:rgba(120,100,255,.1);border:1px solid rgba(120,100,255,.25);
+  color:#b89cff;
+}
+ 
+/* ── SKILLS ── */
+.skills-container{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+.skills-group{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;}
+.skills-group-title{
+  font-size:.75rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--accent3);margin-bottom:20px;
+}
+.skill-item{margin-bottom:16px;}
+.skill-name{font-size:.88rem;font-weight:500;margin-bottom:6px;display:flex;justify-content:space-between;}
+.skill-bar{height:4px;background:rgba(120,100,255,.12);border-radius:2px;overflow:hidden;}
+.skill-fill{
+  height:100%;border-radius:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  animation:fillBar 1.2s ease-out forwards;
+  transform-origin:left;
+}
+@keyframes fillBar{from{width:0;}}
+.tools-cloud{display:flex;flex-wrap:wrap;gap:10px;}
+.tool-chip{
+  padding:6px 14px;border-radius:20px;font-size:.78rem;font-weight:500;
+  background:var(--surface2);border:1px solid var(--border);color:var(--text-muted);
+  transition:all .3s;
+}
+.tool-chip:hover{border-color:var(--accent3);color:var(--accent3);}
+ 
+/* ── CERTIFICATIONS ── */
+.cert-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.cert-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:20px;
+  text-align:center;transition:all .3s;
+}
+.cert-card:hover{border-color:rgba(124,92,252,.4);transform:translateY(-2px);}
+.cert-org{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.cert-name{font-size:.82rem;font-weight:500;line-height:1.4;}
+.cert-icon{font-size:1.6rem;margin-bottom:8px;display:block;}
+ 
+/* ── ACHIEVEMENTS ── */
+.ach-list{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.ach-item{
+  display:flex;align-items:flex-start;gap:14px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:20px;
+  transition:all .3s;
+}
+.ach-item:hover{border-color:rgba(255,213,79,.3);}
+.ach-icon{font-size:1.4rem;flex-shrink:0;margin-top:2px;}
+.ach-text{font-size:.88rem;line-height:1.5;}
+.ach-text strong{color:var(--text);font-weight:600;}
+.ach-text span{color:var(--text-muted);}
+ 
+/* ── TIMELINE ── */
+.timeline{position:relative;padding-left:32px;}
+.timeline::before{
+  content:'';position:absolute;left:0;top:8px;bottom:8px;width:2px;
+  background:linear-gradient(180deg,var(--accent),var(--accent2),transparent);
+}
+.timeline-item{
+  position:relative;margin-bottom:32px;
+}
+.timeline-item::before{
+  content:'';position:absolute;left:-39px;top:8px;
+  width:14px;height:14px;border-radius:50%;
+  background:var(--accent);border:2px solid var(--bg);
+  box-shadow:0 0 10px rgba(124,92,252,.6);
+}
+.tl-year{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--accent3);margin-bottom:4px;}
+.tl-title{font-weight:600;margin-bottom:4px;}
+.tl-sub{font-size:.85rem;color:var(--text-muted);}
+ 
+/* ── INTERESTS ── */
+.interests-grid{display:flex;flex-wrap:wrap;gap:12px;}
+.interest-pill{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 18px;border-radius:24px;
+  background:var(--surface);border:1px solid var(--border);
+  font-size:.85rem;transition:all .3s;
+}
+.interest-pill:hover{border-color:var(--accent);transform:scale(1.04);}
+ 
+/* ── CONTACT ── */
+.contact-section{
+  background:linear-gradient(135deg,rgba(124,92,252,.08),rgba(0,229,200,.05));
+  border:1px solid var(--border);border-radius:24px;
+  padding:56px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.contact-section::before{
+  content:'';position:absolute;top:-50%;left:-50%;
+  width:200%;height:200%;
+  background:radial-gradient(ellipse at center,rgba(124,92,252,.06),transparent 60%);
+  pointer-events:none;
+}
+.contact-title{
+  font-family:'Playfair Display',serif;
+  font-size:2.5rem;font-weight:700;margin-bottom:16px;
+}
+.contact-sub{color:var(--text-muted);margin-bottom:32px;font-size:1rem;}
+.contact-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;}
+.contact-link{
+  padding:10px 24px;border-radius:8px;
+  font-size:.85rem;font-weight:600;letter-spacing:.06em;
+  text-decoration:none;border:1px solid var(--border);
+  color:var(--text-muted);transition:all .3s;
+  display:flex;align-items:center;gap:8px;
+}
+.contact-link:hover{border-color:var(--accent);color:var(--accent);}
+ 
+/* ── FOOTER ── */
+footer{
+  text-align:center;padding:32px 48px;
+  color:var(--text-dim);font-size:.8rem;
+  border-top:1px solid var(--border);
+}
+ 
+/* ── ANIMATIONS ── */
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease;}
+.fade-in.visible{opacity:1;transform:none;}
+ 
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{padding:16px 24px;}
+  .nav-links{display:none;}
+  .hero{padding:100px 24px 60px;}
+  .hero-stats{display:none;}
+  section{padding:60px 24px;}
+  .edu-grid,.skills-container,.ach-list{grid-template-columns:1fr;}
+  .projects-grid{grid-template-columns:1fr 1fr;}
+  .cert-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:600px){
+  .projects-grid,.cert-grid{grid-template-columns:1fr;}
+  .patent-card{grid-template-columns:1fr;grid-template-rows:auto;}
+  .patent-badge{justify-self:start;}
+}
+</style>
 </head>
 <body>
-
+ 
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">NS<span>.</span></div>
+  <div class="nav-links">
+    <a href="#education">Education</a>
+    <a href="#patents">Patents</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+ 
+<!-- HERO -->
 <div class="hero">
-    <h1>Navnita Sharma</h1>
-    <p>Data Scientist | Inventor | 3rd Year B.Tech @ Sage University</p>
-</div>
-
-<div class="container">
-    <div class="section">
-        <h2>📊 Live Skill Analytics</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>Technical Proficiency</h3>
-                <canvas id="skillChart"></canvas>
-            </div>
-            <div class="card">
-                <h3>Patent Impact: Perishable Items</h3>
-                <p>Visualization of predictive freshness logic (Patent: 202621008279 A)</p>
-                <div class="chart-container"><canvas id="freshnessChart"></canvas></div>
-            </div>
-        </div>
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content fade-in visible">
+    <div class="hero-tag">
+      <span></span> Available for Opportunities
     </div>
-
-    <div class="section">
-        <h2>🏆 Major Achievements</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>Grandparent Guardian</h3>
-                <p>Awarded for UI/UX & Additional Features. Ranked 11/50 in Hackathon.</p>
-            </div>
-            <div class="card">
-                <h3>Non-GPS Tracking</h3>
-                <p>Built predictive algorithms for fleet management using toll data.</p>
-            </div>
-        </div>
+    <h1>
+      Navnita<br>
+      <span class="accent-name">Sharma</span>
+    </h1>
+    <p class="hero-subtitle">AI Researcher · Patent Inventor · Full-Stack Builder · Data Scientist</p>
+    <p style="color:var(--text-muted);font-size:.9rem;">B.Tech Computer Science @ SAGE University, Indore · CGPA 9.36</p>
+    <div class="hero-badges">
+      <span class="badge badge-gold">🏆 Academic Excellence Award</span>
+      <span class="badge badge-purple">2× Patent Holder</span>
+      <span class="badge badge-teal">AI Certified 2026</span>
+      <span class="badge badge-pink">Hackathon Leader</span>
     </div>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View My Work</a>
+      <a href="#contact" class="btn btn-ghost">Let's Connect</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-card">
+      <div class="stat-num">9.36</div>
+      <div class="stat-label">CGPA</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">2</div>
+      <div class="stat-label">Patents</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">15+</div>
+      <div class="stat-label">Certifications</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">6+</div>
+      <div class="stat-label">Projects</div>
+    </div>
+  </div>
 </div>
-
+ 
+<div class="divider"></div>
+ 
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header fade-in">
+    <div class="section-label">Academic Journey</div>
+    <h2 class="section-title">Education &amp; Background</h2>
+  </div>
+  <div class="edu-grid fade-in">
+    <div class="edu-card">
+      <div class="edu-year">2023 — Present</div>
+      <div class="edu-degree">B.Tech in Computer Science</div>
+      <div class="edu-inst">SAGE University, Indore</div>
+      <div class="edu-cgpa">⭐ CGPA 9.36 — Academic Excellence Award</div>
+      <p style="margin-top:14px;font-size:.85rem;color:var(--text-muted);">
+        Specializing in AI, federated learning, and data systems. Active in research, innovation, and hackathons while maintaining top academic standing.
+      </p>
+    </div>
+    <div class="edu-card">
+      <div class="edu-year">Completed 2026</div>
+      <div class="edu-degree">AI Certification</div>
+      <div class="edu-inst">Formal AI Program</div>
+      <div class="edu-cgpa" style="background:rgba(0,229,200,.1);border-color:rgba(0,229,200,.3);color:var(--accent3);">✓ Certified</div>
+      <p style="margin-top:14px;font-size:.85rem;color:var(--text-muted);">
+        Comprehensive certification covering machine learning, neural networks, and applied AI. Augmented by hands-on project experience with federated and privacy-preserving AI.
+      </p>
+    <!-- Timeline sidebar -->
+    <div style="padding:28px 32px;background:var(--surface);border:1px solid var(--border);border-radius:16px;">
+      <div class="section-label" style="margin-bottom:24px;">Academic Timeline</div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="tl-year">2026</div>
+          <div class="tl-title">AI Certification Completed</div>
+          <div class="tl-sub">Formal AI Program</div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-year">2026</div>
+          <div class="tl-title">Patent Published</div>
+          <div class="tl-sub">Perishable Items Freshness System</div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-year">2025</div>
+          <div class="tl-title">Patent Granted</div>
+          <div class="tl-sub">Federated Learning for Genetic Disorders</div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-year">2024</div>
+          <div class="tl-title">Academic Excellence Award</div>
+          <div class="tl-sub">SAGE University</div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-year">2023</div>
+          <div class="tl-title">B.Tech CSE Commenced</div>
+          <div class="tl-sub">SAGE University, Indore</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<div class="divider"></div>
+ 
+<!-- PATENTS -->
+<section id="patents">
+  <div class="section-header fade-in">
+    <div class="section-label">Intellectual Property</div>
+    <h2 class="section-title">Patents &amp; Inventions</h2>
+  </div>
+  <div class="patent-list fade-in">
+    <div class="patent-card">
+      <div class="patent-icon">🧬</div>
+      <div>
+        <div class="patent-title">Decentralized Federated Learning for Early Diagnosis of Genetic Disorders</div>
+        <div class="patent-desc">A privacy-preserving AI framework leveraging federated learning across distributed healthcare nodes for early detection of genetic disorders without exposing sensitive genomic data. Recognized for originality and real-world medical impact.</div>
+        <div class="patent-app">Domain: Healthcare AI · Federated Learning · Genomics · Privacy Preservation</div>
+      </div>
+      <span class="patent-badge badge-granted">Granted</span>
+    </div>
+    <div class="patent-card">
+      <div class="patent-icon">🥦</div>
+      <div>
+        <div class="patent-title">System and Method for Predicting Freshness of Perishable Items</div>
+        <div class="patent-desc">An intelligent prediction system integrating sensor data, computer vision, and machine learning to estimate freshness and shelf-life of perishable goods — reducing food waste and improving supply chain decisions.</div>
+        <div class="patent-app">App No: 202621008279 A · Published: March 13, 2026</div>
+      </div>
+      <span class="patent-badge badge-published">Published</span>
+    </div>
+    <div class="patent-card" style="border-color:rgba(0,229,200,.2);background:rgba(0,229,200,.03);">
+      <div class="patent-icon">🔒</div>
+      <div>
+        <div class="patent-title">Federated Learning in Healthcare — Privacy-Preserving AI for Genomic Data</div>
+        <div class="patent-desc">Research and applied system exploring cross-institutional learning on genomic datasets while maintaining patient confidentiality and regulatory compliance, enabling breakthroughs without centralizing sensitive medical records.</div>
+        <div class="patent-app">Domain: Privacy-Preserving AI · Genomic Data · Cross-Institutional Learning</div>
+      </div>
+      <span class="patent-badge" style="background:rgba(0,229,200,.1);border:1px solid rgba(0,229,200,.4);color:var(--accent3);">Research</span>
+    </div>
+  </div>
+</section>
+ 
+<div class="divider"></div>
+ 
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header fade-in">
+    <div class="section-label">Built & Shipped</div>
+    <h2 class="section-title">Technical Projects</h2>
+  </div>
+  <div class="projects-grid fade-in">
+ 
+    <div class="project-card featured">
+      <div class="proj-emoji">🚛</div>
+      <div class="proj-title">FleetSync App</div>
+      <div class="proj-desc">Role-based fleet tracking with multilingual interface, voice alerts, automated driver messaging, FASTag toll-based tracking, and predictive routing logic — GPS-optional by design.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">Kotlin</span>
+        <span class="proj-tag">Firebase</span>
+        <span class="proj-tag">FASTag API</span>
+        <span class="proj-tag">Multilingual</span>
+        <span class="proj-tag">Predictive Logic</span>
+      </div>
+    </div>
+ 
+    <div class="project-card featured">
+      <div class="proj-emoji">🛡️</div>
+      <div class="proj-title">Grandparent Guardian App</div>
+      <div class="proj-desc">Award-winning hackathon project detecting scam calls and OTP fraud targeting elderly users using intelligent pattern recognition and real-time alerting. Ranked 11th / 50 teams.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">Android</span>
+        <span class="proj-tag">ML Fraud Detection</span>
+        <span class="proj-tag">Firebase</span>
+        <span class="proj-tag">Hackathon 🏆</span>
+      </div>
+    </div>
+ 
+    <div class="project-card">
+      <div class="proj-emoji">🌾</div>
+      <div class="proj-title">Agro Assist</div>
+      <div class="proj-desc">Web platform integrating real-time data and AI to support agricultural decision-making — covering crop monitoring, weather intelligence, and advisory services for farmers.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">Web Dev</span>
+        <span class="proj-tag">Real-Time API</span>
+        <span class="proj-tag">Python</span>
+        <span class="proj-tag">Data Viz</span>
+      </div>
+    </div>
+ 
+    <div class="project-card">
+      <div class="proj-emoji">📡</div>
+      <div class="proj-title">Non-GPS Vehicle Tracking</div>
+      <div class="proj-desc">Innovative truck tracking system using toll transaction data as location proxies — eliminating GPS dependency while maintaining reliable route coverage across national highways.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">FASTag Data</span>
+        <span class="proj-tag">Python</span>
+        <span class="proj-tag">Route Analysis</span>
+        <span class="proj-tag">Innovation</span>
+      </div>
+    </div>
+ 
+    <div class="project-card">
+      <div class="proj-emoji">📊</div>
+      <div class="proj-title">Tableau & R Dashboards</div>
+      <div class="proj-desc">Professional data visualization projects covering business analytics, academic performance tracking, and research insights — combining Tableau's visual power with R's statistical depth.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">Tableau</span>
+        <span class="proj-tag">R</span>
+        <span class="proj-tag">Power BI</span>
+        <span class="proj-tag">Storytelling</span>
+      </div>
+    </div>
+ 
+    <div class="project-card">
+      <div class="proj-emoji">📚</div>
+      <div class="proj-title">Theory of Computation Resources</div>
+      <div class="proj-desc">Curated digital notes and learning modules for Theory of Computation, combined with digital entrepreneurship experiments — blending technical education with business thinking.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">Education Tech</span>
+        <span class="proj-tag">Documentation</span>
+        <span class="proj-tag">Digital Biz</span>
+      </div>
+    </div>
+ 
+  </div>
+</section>
+ 
+<div class="divider"></div>
+ 
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header fade-in">
+    <div class="section-label">Technical Arsenal</div>
+    <h2 class="section-title">Skills &amp; Stack</h2>
+  </div>
+  <div class="skills-container fade-in">
+ 
+    <div>
+      <div class="skills-group" style="margin-bottom:20px;">
+        <div class="skills-group-title">Programming Languages</div>
+        <div class="skill-item">
+          <div class="skill-name"><span>Python (Advanced)</span><span style="color:var(--accent)">95%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>SQL</span><span style="color:var(--accent)">85%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>Kotlin</span><span style="color:var(--accent)">75%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>C</span><span style="color:var(--accent)">70%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+        </div>
+      </div>
+ 
+      <div class="skills-group">
+        <div class="skills-group-title">Domain Expertise</div>
+        <div class="skill-item">
+          <div class="skill-name"><span>Data Analytics & Visualization</span><span style="color:var(--accent)">90%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>AI & Federated Learning</span><span style="color:var(--accent)">88%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>Cloud Computing</span><span style="color:var(--accent)">78%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name"><span>UI/UX Design</span><span style="color:var(--accent)">72%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div>
+        </div>
+      </div>
+    </div>
+ 
+    <div>
+      <div class="skills-group" style="margin-bottom:20px;">
+        <div class="skills-group-title">Tools & Platforms</div>
+        <div class="tools-cloud">
+          <span class="tool-chip">Power BI</span>
+          <span class="tool-chip">Tableau</span>
+          <span class="tool-chip">GitHub</span>
+          <span class="tool-chip">Firebase</span>
+          <span class="tool-chip">AWS</span>
+          <span class="tool-chip">Microsoft Azure</span>
+          <span class="tool-chip">R</span>
+          <span class="tool-chip">PlantUML</span>
+          <span class="tool-chip">Mermaid</span>
+          <span class="tool-chip">Draw.io</span>
+          <span class="tool-chip">Firestore</span>
+          <span class="tool-chip">Gemini AI</span>
+        </div>
+      </div>
+ 
+      <div class="skills-group">
+        <div class="skills-group-title">Soft Skills & Other</div>
+        <div class="tools-cloud">
+          <span class="tool-chip" style="border-color:rgba(255,213,79,.3);color:var(--gold);">🎯 Team Leadership</span>
+          <span class="tool-chip" style="border-color:rgba(0,229,200,.3);color:var(--accent3);">📄 Documentation</span>
+          <span class="tool-chip" style="border-color:rgba(224,64,251,.3);color:#e87fff;">🌐 Hindi</span>
+          <span class="tool-chip" style="border-color:rgba(224,64,251,.3);color:#e87fff;">🌐 English</span>
+          <span class="tool-chip" style="border-color:rgba(224,64,251,.3);color:#e87fff;">🌐 Marwari</span>
+          <span class="tool-chip">⚡ Prompt Engineering</span>
+          <span class="tool-chip">📊 Visual Storytelling</span>
+          <span class="tool-chip">🔬 Research</span>
+        </div>
+      </div>
+    </div>
+ 
+  </div>
+</section>
+ 
+<div class="divider"></div>
+ 
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-header fade-in">
+    <div class="section-label">Verified Credentials</div>
+    <h2 class="section-title">Certifications &amp; Programs</h2>
+  </div>
+  <div class="cert-grid fade-in">
+ 
+    <div class="cert-card">
+      <span class="cert-icon">🔷</span>
+      <div class="cert-org">Cisco</div>
+      <div class="cert-name">Python Essentials 1</div>
+    </div>
+    <div class="cert-card">
+      <span class="cert-icon">☁️</span>
+      <div class="cert-org">Microsoft</div>
+      <div class="cert-name">Azure Fundamentals AZ-900</div>
+    </div>
+    <div class="cert-card">
+      <span class="cert-icon">🤖</span>
+      <div class="cert-org">IBM</div>
+      <div class="cert-name">Data Science 101</div>
+    </div>
+    <div class="cert-card">
+      <span class="cert-icon">📊</span>
+      <div class="cert-org">Microsoft</div>
+      <div class="cert-name">Power BI for Beginners</div>
+    </div>
+    <div class="cert-card">
+      <span class="cert-icon">🧠</span>
+      <div class="cert-org">Simplilearn</div>
+      <div class="cert-name">AI Fundamentals</div>
+    </div>
+    <div class="cert-card" style="border-color:rgba(255,213,79,.25);">
+      <span class="cert-icon">⚡</span>
+      <div class="cert-org" style="color:var(--gold);">Microsoft</div>
+      <div class="cert-name">Code Without Barriers Mentorship</div>
+    </div>
+    <div class="cert-card">
+      <span class="cert-icon">🔬</span>
+      <div class="cert-org">BCG</div>
+      <div class="cert-name">Data Science Job Simulation</div>
+    </div>
+    <div class="cert-card">
+      <span class="cert-icon">📈</span>
+      <div class="cert-org">Quantium</div>
+      <div class="cert-name">Data Analytics Simulation</div>
+    </div>
+    <div class="cert-card">
+      <span class="cert-icon">🏦</span>
+      <div class="cert-org">JPMorgan Chase</div>
+      <div class="cert-name">Quantitative Research + SWE</div>
+    </div>
+    <div class="cert-card">
+      <span class="cert-icon">🔐</span>
+      <div class="cert-org">Deloitte</div>
+      <div class="cert-name">Cybersecurity + Tech + Data Analyst</div>
+    </div>
+    <div class="cert-card">
+      <span class="cert-icon">☁️</span>
+      <div class="cert-org">AWS</div>
+      <div class="cert-name">Cloud Solutions Intern (Virtual)</div>
+    </div>
+    <div class="cert-card">
+      <span class="cert-icon">🌟</span>
+      <div class="cert-org">Tata</div>
+      <div class="cert-name">GenAI Powered Data Analytics</div>
+    </div>
+ 
+  </div>
+</section>
+ 
+<div class="divider"></div>
+ 
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-header fade-in">
+    <div class="section-label">Recognition & Impact</div>
+    <h2 class="section-title">Achievements &amp; Leadership</h2>
+  </div>
+  <div class="ach-list fade-in">
+ 
+    <div class="ach-item">
+      <div class="ach-icon">🏆</div>
+      <div class="ach-text">
+        <strong>Academic Excellence Award</strong><br>
+        <span>Awarded by SAGE University for maintaining CGPA 9.36 — top academic performer in Computer Science department.</span>
+      </div>
+    </div>
+ 
+    <div class="ach-item">
+      <div class="ach-icon">🎯</div>
+      <div class="ach-text">
+        <strong>Hackathon Rank 11 / 50 Teams</strong><br>
+        <span>Grandparent Guardian App placed 11th out of 50 competing teams — recognized for social impact and technical innovation.</span>
+      </div>
+    </div>
+ 
+    <div class="ach-item">
+      <div class="ach-icon">🧬</div>
+      <div class="ach-text">
+        <strong>Patent Granted — Genetic Disorder Diagnosis</strong><br>
+        <span>Patent for Decentralized Federated Learning in healthcare granted; recognized for originality and potential societal impact.</span>
+      </div>
+    </div>
+ 
+    <div class="ach-item">
+      <div class="ach-icon">📜</div>
+      <div class="ach-text">
+        <strong>Patent Published — Freshness Prediction System</strong><br>
+        <span>App No: 202621008279 A, published March 13, 2026. Innovative AI-based food tech solution addressing supply chain efficiency.</span>
+      </div>
+    </div>
+ 
+    <div class="ach-item">
+      <div class="ach-icon">🚀</div>
+      <div class="ach-text">
+        <strong>Hackathon Leadership — Kriyeta 5.0</strong><br>
+        <span>Led Team "Error 404" at Kriyeta 5.0, demonstrating cross-functional leadership and collaborative problem-solving under pressure.</span>
+      </div>
+    </div>
+ 
+    <div class="ach-item">
+      <div class="ach-icon">💡</div>
+      <div class="ach-text">
+        <strong>Smart India Innovation Challenge</strong><br>
+        <span>Participated in national-level innovation challenge, developing impactful solutions for real-world Indian engineering problems.</span>
+      </div>
+    </div>
+ 
+    <div class="ach-item">
+      <div class="ach-icon">🤝</div>
+      <div class="ach-text">
+        <strong>Microsoft Code Without Barriers Mentorship</strong><br>
+        <span>Selected for Microsoft's competitive mentorship program focused on breaking barriers for emerging tech talent in India.</span>
+      </div>
+    </div>
+ 
+    <div class="ach-item">
+      <div class="ach-icon">🌐</div>
+      <div class="ach-text">
+        <strong>15+ Industry Simulations & Certifications</strong><br>
+        <span>Completed professional simulations across BCG, JPMorgan, Deloitte, Tata, AWS, and more — building a career-ready profile while in college.</span>
+      </div>
+    </div>
+ 
+  </div>
+</section>
+ 
+<div class="divider"></div>
+ 
+<!-- INTERESTS -->
+<section id="interests">
+  <div class="section-header fade-in">
+    <div class="section-label">Beyond the Code</div>
+    <h2 class="section-title">Interests &amp; Values</h2>
+  </div>
+  <div class="interests-grid fade-in">
+    <div class="interest-pill">🔬 Invention & Patenting</div>
+    <div class="interest-pill">📊 Data Visualization</div>
+    <div class="interest-pill">🎨 Visual Storytelling</div>
+    <div class="interest-pill">📖 Polished Documentation</div>
+    <div class="interest-pill">🐦 Wildlife & Birds</div>
+    <div class="interest-pill">🦁 Mammals & Nature</div>
+    <div class="interest-pill">🎵 Music</div>
+    <div class="interest-pill">📺 TV Shows</div>
+    <div class="interest-pill">🌟 Pop Culture</div>
+    <div class="interest-pill">📸 Instagram & Snapchat</div>
+    <div class="interest-pill">🧠 Exam Strategy & Learning</div>
+    <div class="interest-pill">🌍 Digital Entrepreneurship</div>
+    <div class="interest-pill">🤖 Prompt Engineering</div>
+    <div class="interest-pill">🏗️ Modular Software Architecture</div>
+  </div>
+</section>
+ 
+<div class="divider"></div>
+ 
+<!-- CONTACT -->
+<section id="contact" style="padding-top:60px;padding-bottom:80px;">
+  <div class="contact-section fade-in">
+    <div class="contact-title">Let's Build Something <span style="background:linear-gradient(135deg,var(--accent),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Extraordinary</span></div>
+    <p class="contact-sub">Open to research collaborations, internships, full-time roles, and innovative projects.</p>
+    <div class="contact-links">
+      <a href="mailto:navnita@example.com" class="contact-link">✉️ Email Me</a>
+      <a href="https://linkedin.com" class="contact-link">💼 LinkedIn</a>
+      <a href="https://github.com" class="contact-link">⌨️ GitHub</a>
+      <a href="#" class="contact-link">📄 Download CV</a>
+    </div>
+    <div style="margin-top:40px;padding-top:32px;border-top:1px solid var(--border);display:flex;justify-content:center;gap:48px;flex-wrap:wrap;">
+      <div style="text-align:center;">
+        <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--accent);">Indore, India</div>
+        <div style="font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);">Location</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--accent3);">2023–Present</div>
+        <div style="font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);">B.Tech CSE</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--accent2);">Hindi · English </div>
+        <div style="font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);">Languages</div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Navnita Sharma — Designed with purpose, built with passion.</p>
+  <p style="margin-top:6px;color:var(--text-dim);">SAGE University · Indore, Madhya Pradesh · India</p>
+</footer>
+ 
 <script>
-    // Technical Skills Radar Chart
-    new Chart(document.getElementById('skillChart'), {
-        type: 'radar',
-        data: {
-            labels: ['Python', 'Data Analytics', 'UI/UX', 'AI/ML', 'Problem Solving'],
-            datasets: [{
-                label: 'Skill Level',
-                data: [95, 85, 80, 75, 90],
-                backgroundColor: 'rgba(108, 92, 231, 0.2)',
-                borderColor: '#6c5ce7'
-            }]
-        }
-    });
-
-    // Freshness Prediction Line Chart
-    new Chart(document.getElementById('freshnessChart'), {
-        type: 'line',
-        data: {
-            labels: ['Day 1', 'Day 3', 'Day 5', 'Day 7', 'Day 9'],
-            datasets: [{
-                label: 'Freshness %',
-                data: [100, 92, 75, 40, 10],
-                borderColor: '#ff7675',
-                fill: false
-            }]
-        }
-    });
+// Scroll fade-in observer
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+    }
+  });
+},{threshold:0.1});
+ 
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+ 
+// Animate skill bars on scroll
+const barObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.querySelectorAll('.skill-fill').forEach(bar => {
+        bar.style.width = bar.style.width;
+      });
+    }
+  });
+},{threshold:0.3});
+ 
+document.querySelectorAll('.skills-container').forEach(el => barObserver.observe(el));
+ 
+// Smooth active nav
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let current = '';
+  sections.forEach(s=>{
+    if(window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id');
+  });
+  navLinks.forEach(link=>{
+    link.style.color = link.getAttribute('href') === '#'+current
+      ? 'var(--accent3)' : '';
+  });
+});
 </script>
-
 </body>
 </html>
+ 
+
