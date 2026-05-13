@@ -1,55 +1,88 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Navnita Sharma | Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navnita Sharma | Data Innovator</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: auto; padding: 20px; }
-        header { background: #2c3e50; color: white; padding: 20px; text-align: center; border-radius: 10px; }
-        .section { margin-top: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        .achievement { background: #f9f9f9; padding: 15px; margin: 10px 0; border-left: 5px solid #2c3e50; }
-        .tag { background: #e67e22; color: white; padding: 2px 8px; border-radius: 5px; font-size: 0.8em; }
+        :root { --primary: #6c5ce7; --bg: #0f172a; --text: #f8fafc; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
+        .hero { height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(45deg, #1e293b, #6c5ce7); }
+        .container { max-width: 1000px; margin: auto; padding: 20px; }
+        .card { background: #1e293b; padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #334155; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .chart-container { background: white; padding: 20px; border-radius: 15px; margin-top: 10px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
     </style>
 </head>
 <body>
 
-<header>
+<div class="hero">
     <h1>Navnita Sharma</h1>
-    <p>3rd Year B.Tech Computer Science | Sage University, Indore</p>
-    <p>Python Developer | Data Analytics | UI/UX Enthusiast</p>
-</header>
+    <p>Data Scientist | Inventor | 3rd Year B.Tech @ Sage University</p>
+</div>
 
-<div class="section">
-    <h2>Patents & Research</h2>
-    <div class="achievement">
-        <strong>Predicting Freshness of Perishable Items</strong> <span class="tag">Patent Application: 202621008279 A</span>
-        <p>Published: March 13, 2026. Co-invented a system for monitoring the shelf-life of perishables.</p>
+<div class="container">
+    <div class="section">
+        <h2>📊 Live Skill Analytics</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Technical Proficiency</h3>
+                <canvas id="skillChart"></canvas>
+            </div>
+            <div class="card">
+                <h3>Patent Impact: Perishable Items</h3>
+                <p>Visualization of predictive freshness logic (Patent: 202621008279 A)</p>
+                <div class="chart-container"><canvas id="freshnessChart"></canvas></div>
+            </div>
+        </div>
     </div>
-    <div class="achievement">
-        <strong>Federated Learning in Healthcare</strong>
-        <p>Research on genomic data privacy and AI-driven medical solutions.</p>
+
+    <div class="section">
+        <h2>🏆 Major Achievements</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Grandparent Guardian</h3>
+                <p>Awarded for UI/UX & Additional Features. Ranked 11/50 in Hackathon.</p>
+            </div>
+            <div class="card">
+                <h3>Non-GPS Tracking</h3>
+                <p>Built predictive algorithms for fleet management using toll data.</p>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="section">
-    <h2>Hackathon Achievements</h2>
-    <div class="achievement">
-        <strong>Grandparent Guardian - UI/UX Award</strong>
-        <p>Won prize for design and features; ranked 11th out of 50 teams in a 36-hour hackathon.</p>
-    </div>
-    <div class="achievement">
-        <strong>Kriyeta 5.0 Hackathon</strong>
-        <p>Lead of Team "Error 404" at Acropolis Institute (April 2026).</p>
-    </div>
-</div>
+<script>
+    // Technical Skills Radar Chart
+    new Chart(document.getElementById('skillChart'), {
+        type: 'radar',
+        data: {
+            labels: ['Python', 'Data Analytics', 'UI/UX', 'AI/ML', 'Problem Solving'],
+            datasets: [{
+                label: 'Skill Level',
+                data: [95, 85, 80, 75, 90],
+                backgroundColor: 'rgba(108, 92, 231, 0.2)',
+                borderColor: '#6c5ce7'
+            }]
+        }
+    });
 
-<div class="section">
-    <h2>Certifications & Projects</h2>
-    <ul>
-        <li><strong>Python Essentials 1</strong> - Cisco Networking Academy</li>
-        <li><strong>Non-GPS Vehicle Tracking System</strong> - Developed predictive logic for fleet monitoring.</li>
-    </ul>
-</div>
+    // Freshness Prediction Line Chart
+    new Chart(document.getElementById('freshnessChart'), {
+        type: 'line',
+        data: {
+            labels: ['Day 1', 'Day 3', 'Day 5', 'Day 7', 'Day 9'],
+            datasets: [{
+                label: 'Freshness %',
+                data: [100, 92, 75, 40, 10],
+                borderColor: '#ff7675',
+                fill: false
+            }]
+        }
+    });
+</script>
 
 </body>
 </html>
